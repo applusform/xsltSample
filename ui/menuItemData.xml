@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<info>
+	<desc>Clothing Shop Menu Items</desc>
+	<date>2015.04.07</date>
+	<menus>
+		<menu type="Women" name="Dresses and Skirts" code="wds"/>
+		<menu type="Men" name="Shirts" code="ms"/>
+		<menu type="Men" name="Casual Pants" code="mcs"/>
+		<menu type="Women" name="Intimate Apparel" code="wia"/>
+		<menu type="Men" name="Jeans" code="mj"/>
+		<menu type="Women" name="Shirts and Blouses" code="wsb"/>
+		<menu type="Women" name="Accessories" code="wa"/>
+		<menu type="Men" name="Shoes" code="ms2"/>
+		<menu type="Women" name="Shoes" code="ws"/>
+		<menu type="Men" name="Outwear" code="mo"/>
+		<menu type="Women" name="Jeans" code="wj"/>
+		<menu type="Men" name="Athletic Apparel" code="ma"/>
+		<menu type="Women" name="Athletic Apparel" code="waa"/>
+	</menus>
+</info>
+

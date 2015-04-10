@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MOML version="1.1.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.applusform.com/xsd/moml_ui_1.1.8.xsd">
+	<THEMES>
+		<THEME element="BUTTON" img="#0080ff" pressedImg="#008000" margin="1"/>
+		<THEME id="lineSpace" layout="300,10"/>
+	</THEMES>
+	<UILAYOUT portrait="320,480" landscape="320,480">
+		<WINDOW layout="0,0,320,480" img="white" align="linear:vertical" padding="10,20,10,0" scroll="vertical">
+			<LABEL text="original data : "/>
+			<LIST2 layout="300,100" dataSource="menuItemData.xml" dataList="//menu" img="#e1f5fe" divider="gray">
+				<LISTLAYOUT>
+					<WINDOW layout="0,0,300,20" align="linear">
+						<LABEL id="type" layout="100,20" text="{xpath.evaluate('@type')}" />
+						<LABEL id="name" layout="150,20" text="{xpath.evaluate('@name')}" />
+						<LABEL id="code" layout="50,20" text="{xpath.evaluate('@code')}" />
+					</WINDOW>
+				</LISTLAYOUT>
+			</LIST2>
+			<WINDOW themeId="lineSpace" />
+			<BUTTON text="xpath search" onClick="function.xpathSearch"/>
+			<LIST2 id="xpathSearchedList" layout="300,100" img="#e1f5fe">
+				<LISTLAYOUT>
+					<WINDOW layout="0,0,300,20" align="linear">
+						<LABEL id="type" layout="100,20" text="{xpath.evaluate('@type')}" />
+						<LABEL id="name" layout="150,20" text="{xpath.evaluate('@name')}" />
+						<LABEL id="code" layout="50,20" text="{xpath.evaluate('@code')}" />
+					</WINDOW>
+				</LISTLAYOUT>
+			</LIST2>
+			<WINDOW themeId="lineSpace" />
+			<BUTTON text="xslt sort" onClick="function.xsltSort"/>
+			<LIST2 id="sortedList" layout="300,100" dataList="//menu" img="#e1f5fe">
+				<LISTLAYOUT>
+					<WINDOW layout="0,0,300,20" align="linear">
+						<LABEL id="type" layout="100,20" text="{xpath.evaluate('@type')}" />
+						<LABEL id="name" layout="150,20" text="{xpath.evaluate('@name')}" />
+						<LABEL id="code" layout="50,20" text="{xpath.evaluate('@code')}" />
+					</WINDOW>
+				</LISTLAYOUT>
+			</LIST2>
+			<WINDOW themeId="lineSpace" />
+			<BUTTON text="xslt search and sort" onClick="function.xslSearchSort"/>
+			<LIST2 id="searchSortedList" layout="300,100" dataList="//menu" img="#e1f5fe">
+				<LISTLAYOUT>
+					<WINDOW layout="0,0,300,20" align="linear">
+						<LABEL id="type" layout="100,20" text="{xpath.evaluate('@type')}" />
+						<LABEL id="name" layout="150,20" text="{xpath.evaluate('@name')}" />
+						<LABEL id="code" layout="50,20" text="{xpath.evaluate('@code')}" />
+					</WINDOW>
+				</LISTLAYOUT>
+			</LIST2>
+			<WINDOW themeId="lineSpace" />
+			<BUTTON text="transform MOML" onClick="function.transformToMoml"/>
+			<CONTAINER id="transformContainer" layout="300,200" align="relative" img="#e1f5fe"/>
+			<WINDOW themeId="lineSpace" />
+			<BUTTON text="transform HTML" onClick="function.transformToHtml"/>
+			<WEBVIEW id="transformWebView" layout="300,200" img="#e1f5fe" controls="none"/>
+			<WINDOW themeId="lineSpace" />
+		</WINDOW>
+	</UILAYOUT>
+	<FUNCTION id="xpathSearch">
+		<CMD cmd="xml = file.read('menuItemData.xml')"/>
+		<CMD cmd="xpathSearchedList.dataList = '//menu[@type =\'Women\']'"/>
+		<CMD cmd="xpathSearchedList.dataSource = xml" />
+	</FUNCTION>
+
+	<FUNCTION id="xsltSort">
+		<CMD cmd="xml = file.read('menuItemData.xml')"/>
+		<CMD cmd="xsl = file.read('sortByName.xsl')"/>
+		<CMD cmd="sortedList.dataSource = xslt.transform(xml, xsl)" />
+	</FUNCTION>
+
+	<FUNCTION id="xslSearchSort">
+		<CMD cmd="xml = file.read('menuItemData.xml')"/>
+		<CMD cmd="xsl = file.read('searchByType.xsl')"/>
+		<CMD cmd="xslt.setParameter('SearchType', 'Women')"/>
+		<CMD cmd="searchSortedList.dataSource = xslt.transform(xml, xsl)" />
+	</FUNCTION>
+
+	<FUNCTION id="transformToMoml">
+		<CMD cmd="xml = file.read('menuItemData.xml')"/>
+		<CMD cmd="xsl = file.read('menuItemDataToMoml.xsl')"/>
+		<CMD cmd="transformContainer.src = xslt.transform(xml, xsl)" />
+	</FUNCTION>
+
+	<FUNCTION id="transformToHtml">
+		<CMD cmd="xml = file.read('menuItemData.xml')"/>
+		<CMD cmd="xsl = file.read('menuItemDataToHtml.xsl')"/>
+		<CMD cmd="transformWebView.src = xslt.transform(xml, xsl)" />
+	</FUNCTION>
+
+</MOML>
